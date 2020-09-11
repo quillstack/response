@@ -1,0 +1,29 @@
+{
+    "name": "quillstack/response",
+    "description": "The response object based on PSR-7: HTTP messages, and with the main goal: to be simple and fast.",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://quillstack.com/response/",
+    "authors": [
+        {
+            "name": "Radek Ziemniewicz",
+            "email": "radoslaw@ziemniewicz.pl"
+        }
+    ],
+    "require": {
+        "php": "^7.4",
+        "psr/http-message": "^1.0",
+        "psr/http-factory": "^1.0",
+        "quillstack/di": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "QuillStack\\Http\\Response\\": "src/QuillStack/Http/Response/",
+            "QuillStack\\Mocks\\Http\\Response\\": "tests/QuillStack/Mocks/Http/Response/"
+        }
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^5.1",
+        "phpunit/phpunit": "^9"
+    }
+}
