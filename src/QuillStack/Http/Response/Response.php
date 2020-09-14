@@ -5,9 +5,26 @@ declare(strict_types=1);
 namespace QuillStack\Http\Response;
 
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
+use QuillStack\Http\Response\Exceptions\MethodNotImplementedException;
 
 class Response implements ResponseInterface
 {
+    public const CODE_OK = 200;
+
+    public const ALLOWED_CODES = [
+        self::CODE_OK,
+    ];
+
+    private int $code;
+    private string $reasonPhrase;
+
+    public function __construct(int $code = 200, string $reasonPhrase = '')
+    {
+        $this->code = $code;
+        $this->reasonPhrase = $reasonPhrase;
+    }
+
     public function getProtocolVersion()
     {
         // TODO: Implement getProtocolVersion() method.
@@ -58,23 +75,36 @@ class Response implements ResponseInterface
         // TODO: Implement getBody() method.
     }
 
-    public function withBody(\Psr\Http\Message\StreamInterface $body)
+    public function withBody(StreamInterface $body)
     {
-        // TODO: Implement withBody() method.
+        throw new MethodNotImplementedException("Method `withBody` not implemented");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getStatusCode()
     {
-        // TODO: Implement getStatusCode() method.
+        return $this->code;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function withStatus($code, $reasonPhrase = '')
     {
-        // TODO: Implement withStatus() method.
+        $new = clone $this;
+        $new->code = $code;
+        $new->reasonPhrase = $reasonPhrase;
+
+        return $new;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getReasonPhrase()
     {
-        // TODO: Implement getReasonPhrase() method.
+        return $this->reasonPhrase;
     }
 }
