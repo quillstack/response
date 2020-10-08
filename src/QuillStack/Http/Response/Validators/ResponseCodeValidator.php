@@ -11,6 +11,9 @@ use QuillStack\ValidatorInterface;
 
 final class ResponseCodeValidator extends ResponseException implements ValidatorInterface
 {
+    /**
+     * @var int
+     */
     private int $responseCode;
 
     /**

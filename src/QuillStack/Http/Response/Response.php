@@ -6,75 +6,162 @@ namespace QuillStack\Http\Response;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
+use QuillStack\Http\HeaderBag\HeaderBag;
 use QuillStack\Http\Response\Exceptions\MethodNotImplementedException;
+use QuillStack\Http\Response\Exceptions\UnableToFindReasonPhraseException;
 
 class Response implements ResponseInterface
 {
+    /**
+     * @var int
+     */
     public const CODE_OK = 200;
 
+    /**
+     * @var string
+     */
+    public const MESSAGE_OK = 'OK';
+
+    /**
+     * @var array
+     */
     public const ALLOWED_CODES = [
         self::CODE_OK,
     ];
 
+    public const CODE_TO_MESSAGE = [
+        self::CODE_OK => self::MESSAGE_OK,
+    ];
+
+    /**
+     * @var int
+     */
     private int $code;
+
+    /**
+     * @var string
+     */
     private string $reasonPhrase;
 
-    public function __construct(int $code = 200, string $reasonPhrase = '')
+    /**
+     * @var HeaderBag
+     */
+    private HeaderBag $headerBag;
+
+    /**
+     * @param int $code
+     * @param string $reasonPhrase
+     * @param HeaderBag $headerBag
+     */
+    public function __construct(int $code = 200, string $reasonPhrase = '', HeaderBag $headerBag)
     {
         $this->code = $code;
-        $this->reasonPhrase = $reasonPhrase;
+        $this->reasonPhrase = $reasonPhrase ?? $this->findReasonPhrase();
+        $this->headerBag = $headerBag;
     }
 
+    /**
+     * @return string
+     */
+    private function findReasonPhrase(): string
+    {
+        if (!isset(self::CODE_TO_MESSAGE[$this->code])) {
+            throw new UnableToFindReasonPhraseException();
+        }
+
+        return self::CODE_TO_MESSAGE[$this->code];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getProtocolVersion()
     {
         // TODO: Implement getProtocolVersion() method.
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function withProtocolVersion($version)
     {
         // TODO: Implement withProtocolVersion() method.
     }
 
+    /**
+     * {@inheritDoc}
+     * @codeCoverageIgnore
+     */
     public function getHeaders()
     {
-        // TODO: Implement getHeaders() method.
+        return $this->headerBag->getHeaders();
     }
 
+    /**
+     * {@inheritDoc}
+     * @codeCoverageIgnore
+     */
     public function hasHeader($name)
     {
-        // TODO: Implement hasHeader() method.
+        return $this->headerBag->hasHeader($name);
     }
 
+    /**
+     * {@inheritDoc}
+     * @codeCoverageIgnore
+     */
     public function getHeader($name)
     {
-        // TODO: Implement getHeader() method.
+        return $this->headerBag->getHeader($name);
     }
 
+    /**
+     * {@inheritDoc}
+     * @codeCoverageIgnore
+     */
     public function getHeaderLine($name)
     {
-        // TODO: Implement getHeaderLine() method.
+        return $this->headerBag->getHeaderLine($name);
     }
 
+    /**
+     * {@inheritDoc}
+     * @codeCoverageIgnore
+     */
     public function withHeader($name, $value)
     {
-        // TODO: Implement withHeader() method.
+        return $this->headerBag->withoutHeader($name, $value);
     }
 
+    /**
+     * {@inheritDoc}
+     * @codeCoverageIgnore
+     */
     public function withAddedHeader($name, $value)
     {
-        // TODO: Implement withAddedHeader() method.
+        return $this->headerBag->withAddedHeader($name, $value);
     }
 
+    /**
+     * {@inheritDoc}
+     * @codeCoverageIgnore
+     */
     public function withoutHeader($name)
     {
-        // TODO: Implement withoutHeader() method.
+        return $this->headerBag->withoutHeader($name);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getBody()
     {
         // TODO: Implement getBody() method.
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function withBody(StreamInterface $body)
     {
         throw new MethodNotImplementedException("Method `withBody` not implemented");

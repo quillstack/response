@@ -11,13 +11,14 @@ use QuillStack\Http\Response\Validators\ResponseCodeValidator;
 
 final class ResponseFactory implements ResponseFactoryInterface
 {
+    /**
+     * @var ResponseCodeValidator
+     */
     private ResponseCodeValidator $responseCodeValidator;
 
-    public function __construct(ResponseCodeValidator $responseCodeValidator)
-    {
-        $this->responseCodeValidator = $responseCodeValidator;
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     public function createResponse(int $code = 200, string $reasonPhrase = ''): ResponseInterface
     {
         $this->responseCodeValidator->setCode($code)->validate();
