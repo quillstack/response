@@ -7,7 +7,6 @@ namespace QuillStack\Http\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 use QuillStack\Http\HeaderBag\HeaderBag;
-use QuillStack\Http\Response\Exceptions\MethodNotImplementedException;
 use QuillStack\Http\Response\Exceptions\UnableToFindReasonPhraseException;
 
 class Response implements ResponseInterface
@@ -49,15 +48,34 @@ class Response implements ResponseInterface
     private ?HeaderBag $headerBag;
 
     /**
+     * @var string
+     */
+    private string $protocolVersion;
+
+    /**
+     * @var StreamInterface|null
+     */
+    private ?StreamInterface $body;
+
+    /**
      * @param int $code
      * @param string $reasonPhrase
      * @param ?HeaderBag $headerBag
+     * @param string $protocolVersion
+     * @param StreamInterface|null $body
      */
-    public function __construct(int $code = 200, string $reasonPhrase = '', HeaderBag $headerBag = null)
-    {
+    public function __construct(
+        int $code = 200,
+        string $reasonPhrase = '',
+        HeaderBag $headerBag = null,
+        string $protocolVersion = '',
+        StreamInterface $body = null
+    ) {
         $this->code = $code;
         $this->reasonPhrase = $reasonPhrase !== '' ? $reasonPhrase : $this->findReasonPhrase();
         $this->headerBag = $headerBag;
+        $this->protocolVersion = $protocolVersion;
+        $this->body = $body;
     }
 
     /**
@@ -77,7 +95,7 @@ class Response implements ResponseInterface
      */
     public function getProtocolVersion()
     {
-        // TODO: Implement getProtocolVersion() method.
+        return $this->protocolVersion;
     }
 
     /**
@@ -85,7 +103,10 @@ class Response implements ResponseInterface
      */
     public function withProtocolVersion($version)
     {
-        // TODO: Implement withProtocolVersion() method.
+        $new = clone $this;
+        $new->protocolVersion = $version;
+
+        return $new;
     }
 
     /**
@@ -156,7 +177,7 @@ class Response implements ResponseInterface
      */
     public function getBody()
     {
-        // TODO: Implement getBody() method.
+        return $this->body;
     }
 
     /**
@@ -164,7 +185,10 @@ class Response implements ResponseInterface
      */
     public function withBody(StreamInterface $body)
     {
-        throw new MethodNotImplementedException("Method `withBody` not implemented");
+        $new = clone $this;
+        $new->body = $body;
+
+        return $new;
     }
 
     /**
