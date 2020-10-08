@@ -6,6 +6,7 @@ namespace QuillStack\Http\Response\Factory;
 
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
+use QuillStack\Http\HeaderBag\HeaderBag;
 use QuillStack\Http\Response\Response;
 use QuillStack\Http\Response\Validators\ResponseCodeValidator;
 
@@ -14,7 +15,7 @@ final class ResponseFactory implements ResponseFactoryInterface
     /**
      * @var ResponseCodeValidator
      */
-    private ResponseCodeValidator $responseCodeValidator;
+    public ResponseCodeValidator $responseCodeValidator;
 
     /**
      * {@inheritDoc}
@@ -22,7 +23,8 @@ final class ResponseFactory implements ResponseFactoryInterface
     public function createResponse(int $code = 200, string $reasonPhrase = ''): ResponseInterface
     {
         $this->responseCodeValidator->setCode($code)->validate();
+        $headers = new HeaderBag([]);
 
-        return new Response($code, $reasonPhrase);
+        return new Response($code, $reasonPhrase, $headers);
     }
 }

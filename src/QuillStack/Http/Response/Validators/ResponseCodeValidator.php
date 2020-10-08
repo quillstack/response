@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace QuillStack\Http\Response\Validators;
 
-use QuillStack\Http\Response\Exceptions\ResponseException;
 use QuillStack\Http\Response\Exceptions\UnknownResponseCodeException;
 use QuillStack\Http\Response\Response;
 use QuillStack\ValidatorInterface;
 
-final class ResponseCodeValidator extends ResponseException implements ValidatorInterface
+final class ResponseCodeValidator implements ValidatorInterface
 {
     /**
      * @var int

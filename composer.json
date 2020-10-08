@@ -21,7 +21,7 @@
     "autoload": {
         "psr-4": {
             "QuillStack\\Http\\Response\\": "src/QuillStack/Http/Response/",
-            "QuillStack\\Mocks\\Http\\Response\\": "tests/QuillStack/Mocks/Http/Response/"
+            "QuillStack\\Mocks\\": "tests/QuillStack/Mocks/"
         }
     },
     "require-dev": {

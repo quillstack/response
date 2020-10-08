@@ -44,19 +44,19 @@ class Response implements ResponseInterface
     private string $reasonPhrase;
 
     /**
-     * @var HeaderBag
+     * @var HeaderBag|null
      */
-    private HeaderBag $headerBag;
+    private ?HeaderBag $headerBag;
 
     /**
      * @param int $code
      * @param string $reasonPhrase
-     * @param HeaderBag $headerBag
+     * @param ?HeaderBag $headerBag
      */
-    public function __construct(int $code = 200, string $reasonPhrase = '', HeaderBag $headerBag)
+    public function __construct(int $code = 200, string $reasonPhrase = '', HeaderBag $headerBag = null)
     {
         $this->code = $code;
-        $this->reasonPhrase = $reasonPhrase ?? $this->findReasonPhrase();
+        $this->reasonPhrase = $reasonPhrase !== '' ? $reasonPhrase : $this->findReasonPhrase();
         $this->headerBag = $headerBag;
     }
 
