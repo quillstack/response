@@ -5,17 +5,14 @@ declare(strict_types=1);
 namespace QuillStack\Http\Response\Response;
 
 use QuillStack\Mocks\AbstractTest;
-use QuillStack\Mocks\Response\SimpleResponse;
 
-final class ReasonPhraseTest extends AbstractTest
+final class DefaultResponseTest extends AbstractTest
 {
-    protected const NAME = SimpleResponse::class;
-
     public function testDefaultReasonPhrase()
     {
         $this->assertEquals(200, $this->response->getStatusCode());
         $this->assertEquals('OK', $this->response->getReasonPhrase());
-        $this->assertEquals(['response' => 'simple'], $this->response->send());
-        $this->assertEquals('{"response":"simple"}', json_encode($this->response));
+        $this->assertEquals([], $this->response->send());
+        $this->assertEquals('[]', json_encode($this->response));
     }
 }
