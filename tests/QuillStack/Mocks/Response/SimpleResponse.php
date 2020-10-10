@@ -8,6 +8,9 @@ use QuillStack\Http\Response\AbstractResponse;
 
 final class SimpleResponse extends AbstractResponse
 {
+    /**
+     * {@inheritDoc}
+     */
     public function send(): array
     {
         return [

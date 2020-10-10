@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace QuillStack\Http\Response;
 
 use JsonSerializable;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 use QuillStack\Http\HeaderBag\HeaderBag;
 use QuillStack\Http\Response\Exceptions\UnableToFindReasonPhraseException;
