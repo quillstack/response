@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use QuillStack\DI\Container;
 use QuillStack\Http\Response\Factory\ResponseFactory;
-use QuillStack\Http\Response\AbstractResponse;
+use QuillStack\Http\Response\Response;
 
 abstract class AbstractTest extends TestCase
 {
@@ -25,6 +25,6 @@ abstract class AbstractTest extends TestCase
             $factory->setResponseClass(static::NAME);
         }
 
-        $this->response = $factory->createResponse(AbstractResponse::CODE_OK);
+        $this->response = $factory->createResponse(Response::CODE_OK);
     }
 }

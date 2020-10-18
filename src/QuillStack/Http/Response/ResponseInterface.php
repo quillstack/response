@@ -6,6 +6,6 @@ namespace QuillStack\Http\Response;
 
 use Psr\Http\Message\ResponseInterface as PsrResponseInterface;
 
-interface ResponseInterface extends PsrResponseInterface
+interface   ResponseInterface extends PsrResponseInterface
 {
 }

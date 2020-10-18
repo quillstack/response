@@ -12,24 +12,19 @@ use QuillStack\Http\Response\Exceptions\UnableToFindReasonPhraseException;
 abstract class AbstractResponse implements ResponseInterface, JsonSerializable
 {
     /**
-     * @var int
+     * @var array
      */
-    public const CODE_OK = 200;
-
-    /**
-     * @var string
-     */
-    public const MESSAGE_OK = 'OK';
+    public const ALLOWED_CODES = [
+        Response::CODE_OK,
+        Response::CODE_INTERNAL_SERVER_ERROR,
+    ];
 
     /**
      * @var array
      */
-    public const ALLOWED_CODES = [
-        self::CODE_OK,
-    ];
-
     public const CODE_TO_MESSAGE = [
-        self::CODE_OK => self::MESSAGE_OK,
+        Response::CODE_OK => Response::MESSAGE_OK,
+        Response::CODE_INTERNAL_SERVER_ERROR => Response::MESSAGE_INTERNAL_SERVER_ERROR,
     ];
 
     /**
