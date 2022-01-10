@@ -7,8 +7,8 @@ namespace QuillStack\Mocks;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use QuillStack\DI\Container;
-use QuillStack\Http\Response\Factory\ResponseFactory;
-use QuillStack\Http\Response\Response;
+use QuillStack\Response\Factory\ResponseFactory;
+use QuillStack\Response\Response;
 
 abstract class AbstractTest extends TestCase
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace QuillStack\Http\Response\Response;
+namespace QuillStack\Response\Response;
 
 use QuillStack\Mocks\AbstractTest;
 use QuillStack\Mocks\Response\SimpleResponse;

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace QuillStack\Http\Response\Validators;
+namespace QuillStack\Response\Validators;
 
-use QuillStack\Http\Response\Exceptions\UnknownResponseCodeException;
-use QuillStack\Http\Response\AbstractResponse;
+use QuillStack\Response\Exceptions\UnknownResponseCodeException;
+use QuillStack\Response\AbstractResponse;
 use QuillStack\ValidatorInterface;
 
 final class ResponseCodeValidator implements ValidatorInterface

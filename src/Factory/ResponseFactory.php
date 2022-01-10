@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace QuillStack\Http\Response\Factory;
+namespace QuillStack\Response\Factory;
 
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use QuillStack\Http\HeaderBag\HeaderBag;
-use QuillStack\Http\Response\Exceptions\UnknownResponseClassException;
-use QuillStack\Http\Response\Response;
-use QuillStack\Http\Response\Validators\ResponseCodeValidator;
+use QuillStack\Response\Exceptions\UnknownResponseClassException;
+use QuillStack\Response\Response;
+use QuillStack\Response\Validators\ResponseCodeValidator;
 
 final class ResponseFactory implements ResponseFactoryInterface
 {

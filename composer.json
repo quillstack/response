@@ -7,26 +7,30 @@
     "authors": [
         {
             "name": "Radek Ziemniewicz",
-            "email": "open-source@quillstack.com"
+            "email": "radek@quillstack.org"
         }
     ],
     "require": {
-        "php": "^7.4",
+        "php": "^8",
         "ext-json": "*",
         "psr/http-message": "^1.0",
         "psr/http-factory": "^1.0",
-        "quillstack/di": "^1.4.0",
-        "quillstack/validator-interface": "^1.0",
-        "quillstack/header-bag": "^1.0"
+        "quillstack/di": "^0.0.7",
+        "quillstack/validator-interface": "^0.0.2",
+        "quillstack/header-bag": "^0.0.3"
     },
     "autoload": {
         "psr-4": {
-            "QuillStack\\Http\\Response\\": "src/QuillStack/Http/Response/",
-            "QuillStack\\Mocks\\": "tests/QuillStack/Mocks/"
+            "QuillStack\\Response\\": "src/",
+            "QuillStack\\Response\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "0.x-dev"
         }
     },
     "require-dev": {
-        "symfony/var-dumper": "^5.1",
-        "phpunit/phpunit": "^9"
+        "quillstack/unit-tests": "^0.2.10"
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace QuillStack\Http\Response\Exceptions;
+namespace QuillStack\Response\Exceptions;
 
 use QuillStack\ValidationException;
 

@@ -10,9 +10,8 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=quillstack_response&metric=coverage)](https://sonarcloud.io/dashboard?id=quillstack_response)
 ![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/quillstack/response)
 ![Packagist License](https://img.shields.io/packagist/l/quillstack/response)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/quillstack/response/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/quillstack/response/?branch=master)
 
-QuillStack Response is the response library which implements
+Quillstack Response is the response library which implements
 _PSR-7: HTTP message interfaces_ and is based on
 _PSR-17: HTTP Factories_.
 
@@ -30,9 +29,9 @@ Check the tests coverage:
 phpdbg -qrr vendor/bin/phpunit --coverage-html coverage tests
 ```
 
-## Quill Stack
+### Docker
 
-If you want to know more about other solutions, visit the website: \
-https://quillstack.com/ 
-
-[![The Quill Stack](http://quillstack.com/quillstack.png)](https://quillstack.com/)
+```shell
+$ docker-compose up -d
+$ docker exec -w /var/www/html -it quillstack_response sh
+```

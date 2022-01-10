@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace QuillStack\Mocks\Response;
 
-use QuillStack\Http\Response\AbstractResponse;
+use QuillStack\Response\AbstractResponse;
 
 final class SimpleResponse extends AbstractResponse
 {

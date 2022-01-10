@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace QuillStack\Http\Response;
+namespace QuillStack\Response;
 
 use JsonSerializable;
 use Psr\Http\Message\StreamInterface;
 use QuillStack\Http\HeaderBag\HeaderBag;
-use QuillStack\Http\Response\Exceptions\UnableToFindReasonPhraseException;
+use QuillStack\Response\Exceptions\UnableToFindReasonPhraseException;
 
 abstract class AbstractResponse implements ResponseInterface, JsonSerializable
 {
