@@ -1,6 +1,7 @@
-# QuillStack Response
+# Quillstack Response
 
-[![Build Status](https://travis-ci.org/quillstack/response.svg?branch=master)](https://travis-ci.org/quillstack/response)
+[![Build Status](https://app.travis-ci.com/quillstack/response.svg?branch=main)](https://app.travis-ci.com/quillstack/response)
+
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=quillstack_response&metric=alert_status)](https://sonarcloud.io/dashboard?id=quillstack_response)
 [![Downloads](https://img.shields.io/packagist/dt/quillstack/response.svg)](https://packagist.org/packages/quillstack/response)
 [![StyleCI](https://github.styleci.io/repos/291464500/shield?branch=master)](https://github.styleci.io/repos/291464500?branch=master)
@@ -20,13 +21,7 @@ _PSR-17: HTTP Factories_.
 Run tests using a command:
 
 ```
-phpdbg -qrr vendor/bin/phpunit
-```
-
-Check the tests coverage:
-
-```
-phpdbg -qrr vendor/bin/phpunit --coverage-html coverage tests
+phpdbg -qrr ./vendor/bin/unit-tests
 ```
 
 ### Docker
