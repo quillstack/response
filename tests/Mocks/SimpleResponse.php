@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace QuillStack\Mocks\Response;
+namespace Quillstack\Response\Tests\Mocks;
 
-use QuillStack\Http\Response\AbstractResponse;
+use Quillstack\Response\AbstractResponse;
 
-final class SimpleResponse extends AbstractResponse
+class SimpleResponse extends AbstractResponse
 {
     /**
      * {@inheritDoc}

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace QuillStack\Http\Response;
+namespace Quillstack\Response;
 
 class Response extends AbstractResponse
 {
