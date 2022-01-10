@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace QuillStack\Response\Exceptions;
+namespace Quillstack\Response\Exceptions;
 
-final class UnableToFindReasonPhraseException extends ResponseException
+class UnableToFindReasonPhraseException extends ResponseException
 {
+    //
 }

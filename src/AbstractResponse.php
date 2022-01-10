@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace QuillStack\Response;
+namespace Quillstack\Response;
 
 use JsonSerializable;
 use Psr\Http\Message\StreamInterface;
-use QuillStack\Http\HeaderBag\HeaderBag;
-use QuillStack\Response\Exceptions\UnableToFindReasonPhraseException;
+use Quillstack\HeaderBag\HeaderBag;
+use Quillstack\Response\Exceptions\UnableToFindReasonPhraseException;
 
 abstract class AbstractResponse implements ResponseInterface, JsonSerializable
 {
@@ -27,60 +27,18 @@ abstract class AbstractResponse implements ResponseInterface, JsonSerializable
         Response::CODE_INTERNAL_SERVER_ERROR => Response::MESSAGE_INTERNAL_SERVER_ERROR,
     ];
 
-    /**
-     * @var int
-     */
-    private int $code;
-
-    /**
-     * @var string
-     */
-    private string $reasonPhrase;
-
-    /**
-     * @var HeaderBag|null
-     */
-    private ?HeaderBag $headerBag;
-
-    /**
-     * @var string
-     */
-    private string $protocolVersion;
-
-    /**
-     * @var StreamInterface|null
-     */
-    private ?StreamInterface $body;
-
-    /**
-     * @param int $code
-     * @param string $reasonPhrase
-     * @param ?HeaderBag $headerBag
-     * @param string $protocolVersion
-     * @param StreamInterface|null $body
-     */
     public function __construct(
-        int $code = 200,
-        string $reasonPhrase = '',
-        HeaderBag $headerBag = null,
-        string $protocolVersion = '',
-        StreamInterface $body = null
+        private int $code = 200,
+        private string $reasonPhrase = '',
+        private ?HeaderBag $headerBag = null,
+        private string $protocolVersion = '',
+        private ?StreamInterface $body = null
     ) {
-        $this->code = $code;
         $this->reasonPhrase = $reasonPhrase !== '' ? $reasonPhrase : $this->findReasonPhrase();
-        $this->headerBag = $headerBag;
-        $this->protocolVersion = $protocolVersion;
-        $this->body = $body;
     }
 
-    /**
-     * @return array
-     */
     abstract public function send(): array;
 
-    /**
-     * @return string
-     */
     private function findReasonPhrase(): string
     {
         if (!isset(self::CODE_TO_MESSAGE[$this->code])) {
@@ -111,7 +69,6 @@ abstract class AbstractResponse implements ResponseInterface, JsonSerializable
 
     /**
      * {@inheritDoc}
-     * @codeCoverageIgnore
      */
     public function getHeaders()
     {
@@ -120,7 +77,6 @@ abstract class AbstractResponse implements ResponseInterface, JsonSerializable
 
     /**
      * {@inheritDoc}
-     * @codeCoverageIgnore
      */
     public function hasHeader($name)
     {
@@ -129,7 +85,6 @@ abstract class AbstractResponse implements ResponseInterface, JsonSerializable
 
     /**
      * {@inheritDoc}
-     * @codeCoverageIgnore
      */
     public function getHeader($name)
     {
@@ -138,7 +93,6 @@ abstract class AbstractResponse implements ResponseInterface, JsonSerializable
 
     /**
      * {@inheritDoc}
-     * @codeCoverageIgnore
      */
     public function getHeaderLine($name)
     {
@@ -228,7 +182,7 @@ abstract class AbstractResponse implements ResponseInterface, JsonSerializable
     /**
      * {@inheritDoc}
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return $this->send();
     }

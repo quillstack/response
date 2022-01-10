@@ -2,32 +2,20 @@
 
 declare(strict_types=1);
 
-namespace QuillStack\Response\Factory;
+namespace Quillstack\Response\Factory;
 
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
-use QuillStack\Http\HeaderBag\HeaderBag;
-use QuillStack\Response\Exceptions\UnknownResponseClassException;
-use QuillStack\Response\Response;
-use QuillStack\Response\Validators\ResponseCodeValidator;
+use Quillstack\HeaderBag\HeaderBag;
+use Quillstack\Response\Exceptions\UnknownResponseClassException;
+use Quillstack\Response\Response;
+use Quillstack\Response\Validators\ResponseCodeValidator;
 
-final class ResponseFactory implements ResponseFactoryInterface
+class ResponseFactory implements ResponseFactoryInterface
 {
-    /**
-     * @var ResponseCodeValidator
-     */
     public ResponseCodeValidator $responseCodeValidator;
-
-    /**
-     * @var string
-     */
     private string $responseClass = Response::class;
 
-    /**
-     * @param string $responseClass
-     *
-     * @return $this
-     */
     public function setResponseClass(string $responseClass): self
     {
         if (!class_exists($responseClass)) {

@@ -2,21 +2,19 @@
 
 declare(strict_types=1);
 
-namespace QuillStack\Mocks;
+namespace Quillstack\Response\Tests\Mocks;
 
-use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
-use QuillStack\DI\Container;
-use QuillStack\Response\Factory\ResponseFactory;
-use QuillStack\Response\Response;
+use Quillstack\DI\Container;
+use Quillstack\Response\Factory\ResponseFactory;
+use Quillstack\Response\Response;
 
-abstract class AbstractTest extends TestCase
+abstract class AbstractTest
 {
     protected const NAME = '';
-
     protected ResponseInterface $response;
 
-    public function setUp(): void
+    public function __construct()
     {
         $container = new Container();
         $factory = $container->get(ResponseFactory::class);

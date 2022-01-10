@@ -2,25 +2,17 @@
 
 declare(strict_types=1);
 
-namespace QuillStack\Response\Validators;
+namespace Quillstack\Response\Validators;
 
-use QuillStack\Response\Exceptions\UnknownResponseCodeException;
-use QuillStack\Response\AbstractResponse;
-use QuillStack\ValidatorInterface;
+use Quillstack\Response\Exceptions\UnknownResponseCodeException;
+use Quillstack\Response\AbstractResponse;
+use Quillstack\ValidatorInterface\ValidatorInterface;
 
-final class ResponseCodeValidator implements ValidatorInterface
+class ResponseCodeValidator implements ValidatorInterface
 {
-    /**
-     * @var int
-     */
     private int $responseCode;
 
-    /**
-     * @param int $responseCode
-     *
-     * @return $this
-     */
-    public function setCode(int $responseCode)
+    public function setCode(int $responseCode): self
     {
         $this->responseCode = $responseCode;
 

@@ -21,8 +21,8 @@
     },
     "autoload": {
         "psr-4": {
-            "QuillStack\\Response\\": "src/",
-            "QuillStack\\Response\\Tests\\": "tests/"
+            "Quillstack\\Response\\": "src/",
+            "Quillstack\\Response\\Tests\\": "tests/"
         }
     },
     "extra": {

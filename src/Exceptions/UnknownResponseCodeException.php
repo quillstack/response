@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace QuillStack\Response\Exceptions;
+namespace Quillstack\Response\Exceptions;
 
-use QuillStack\ValidationException;
+use Quillstack\ValidatorInterface\ValidationExceptionInterface;
 
-class UnknownResponseCodeException extends ResponseException implements ValidationException
+class UnknownResponseCodeException extends ResponseException implements ValidationExceptionInterface
 {
+    //
 }
