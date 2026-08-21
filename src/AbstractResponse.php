@@ -8,6 +8,7 @@ use JsonSerializable;
 use Psr\Http\Message\StreamInterface;
 use Quillstack\HeaderBag\HeaderBag;
 use Quillstack\Response\Exceptions\UnableToFindReasonPhraseException;
+use Quillstack\Response\Stream\EmptyStream;
 
 abstract class AbstractResponse implements ResponseInterface, JsonSerializable
 {
@@ -19,16 +20,26 @@ abstract class AbstractResponse implements ResponseInterface, JsonSerializable
      */
     public const CODE_TO_MESSAGE = StatusCode::REASON_PHRASES;
 
+    private HeaderBag $headerBag;
+
     public function __construct(
         private int $code = StatusCode::OK,
         private string $reasonPhrase = '',
-        private ?HeaderBag $headerBag = null,
+        ?HeaderBag $headerBag = null,
         private string $protocolVersion = '',
         private ?StreamInterface $body = null
     ) {
+        // A response built without one used to be a single header call away from a fatal
+        // error, and the factory had to pass an empty bag to every one it made.
+        $this->headerBag = $headerBag ?? new HeaderBag();
         $this->reasonPhrase = $reasonPhrase !== '' ? $reasonPhrase : $this->findReasonPhrase();
     }
 
+    /**
+     * What the response carries, ready to be encoded.
+     *
+     * @return array<string, mixed>
+     */
     abstract public function send(): array;
 
     private function findReasonPhrase(): string
@@ -129,7 +140,7 @@ abstract class AbstractResponse implements ResponseInterface, JsonSerializable
      */
     public function getBody()
     {
-        return $this->body;
+        return $this->body ?? new EmptyStream();
     }
 
     /**

@@ -14,6 +14,9 @@ class Response extends AbstractResponse
     /**
      * @return array
      */
+    /**
+     * {@inheritDoc}
+     */
     public function send(): array
     {
         return [];

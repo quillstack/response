@@ -6,7 +6,6 @@ namespace Quillstack\Response\Factory;
 
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
-use Quillstack\HeaderBag\HeaderBag;
 use Quillstack\Response\Exceptions\UnknownResponseClassException;
 use Quillstack\Response\Response;
 use Quillstack\Response\Validators\ResponseCodeValidator;
@@ -37,8 +36,10 @@ class ResponseFactory implements ResponseFactoryInterface
     public function createResponse(int $code = 200, string $reasonPhrase = ''): ResponseInterface
     {
         $this->responseCodeValidator->setCode($code)->validate();
-        $headers = new HeaderBag([]);
 
-        return new $this->responseClass($code, $reasonPhrase, $headers);
+        /** @var ResponseInterface $response */
+        $response = new $this->responseClass($code, $reasonPhrase);
+
+        return $response;
     }
 }
