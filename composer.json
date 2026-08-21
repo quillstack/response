@@ -15,9 +15,9 @@
         "ext-json": "*",
         "psr/http-message": "^1.0",
         "psr/http-factory": "^1.0",
-        "quillstack/di": "^0.0.8 || ^0.1",
-        "quillstack/validator-interface": "^0.0.2",
-        "quillstack/header-bag": "^0.0.3"
+        "quillstack/di": "^0.1",
+        "quillstack/validator-interface": "^0.1",
+        "quillstack/header-bag": "^0.1"
     },
     "require-dev": {
         "quillstack/unit-tests": "^0.3"
@@ -30,7 +30,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "1.0.x-dev"
+            "dev-main": "0.1.x-dev"
         }
     }
 }
