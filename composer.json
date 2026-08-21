@@ -15,12 +15,12 @@
         "ext-json": "*",
         "psr/http-message": "^1.0",
         "psr/http-factory": "^1.0",
-        "quillstack/di": "^0.1",
-        "quillstack/validator-interface": "^0.1",
-        "quillstack/header-bag": "^0.1"
+        "quillstack/di": "^0.2",
+        "quillstack/validator-interface": "^0.2",
+        "quillstack/header-bag": "^0.2"
     },
     "require-dev": {
-        "quillstack/unit-tests": "^0.4"
+        "quillstack/unit-tests": "^0.5"
     },
     "autoload": {
         "psr-4": {
@@ -30,7 +30,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "0.1.x-dev"
+            "dev-main": "0.2.x-dev"
         }
     }
 }
