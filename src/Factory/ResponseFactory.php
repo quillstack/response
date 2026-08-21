@@ -13,8 +13,12 @@ use Quillstack\Response\Validators\ResponseCodeValidator;
 
 class ResponseFactory implements ResponseFactoryInterface
 {
-    public ResponseCodeValidator $responseCodeValidator;
     private string $responseClass = Response::class;
+
+    public function __construct(private readonly ResponseCodeValidator $responseCodeValidator)
+    {
+        //
+    }
 
     public function setResponseClass(string $responseClass): self
     {
