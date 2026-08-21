@@ -12,23 +12,15 @@ use Quillstack\Response\Exceptions\UnableToFindReasonPhraseException;
 abstract class AbstractResponse implements ResponseInterface, JsonSerializable
 {
     /**
-     * @var array
+     * Only 200 and 500 used to be allowed, which left a not-found response no code to
+     * answer with. Every status this library knows a reason phrase for is allowed.
+     *
+     * @var array<int, string>
      */
-    public const ALLOWED_CODES = [
-        Response::CODE_OK,
-        Response::CODE_INTERNAL_SERVER_ERROR,
-    ];
-
-    /**
-     * @var array
-     */
-    public const CODE_TO_MESSAGE = [
-        Response::CODE_OK => Response::MESSAGE_OK,
-        Response::CODE_INTERNAL_SERVER_ERROR => Response::MESSAGE_INTERNAL_SERVER_ERROR,
-    ];
+    public const CODE_TO_MESSAGE = StatusCode::REASON_PHRASES;
 
     public function __construct(
-        private int $code = 200,
+        private int $code = StatusCode::OK,
         private string $reasonPhrase = '',
         private ?HeaderBag $headerBag = null,
         private string $protocolVersion = '',
@@ -41,11 +33,11 @@ abstract class AbstractResponse implements ResponseInterface, JsonSerializable
 
     private function findReasonPhrase(): string
     {
-        if (!isset(self::CODE_TO_MESSAGE[$this->code])) {
-            throw new UnableToFindReasonPhraseException();
+        if (!StatusCode::isKnown($this->code)) {
+            throw new UnableToFindReasonPhraseException("Unknown status code: {$this->code}");
         }
 
-        return self::CODE_TO_MESSAGE[$this->code];
+        return StatusCode::reasonPhrase($this->code);
     }
 
     /**

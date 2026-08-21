@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Quillstack\Response\Validators;
 
 use Quillstack\Response\Exceptions\UnknownResponseCodeException;
-use Quillstack\Response\AbstractResponse;
+use Quillstack\Response\StatusCode;
 use Quillstack\ValidatorInterface\ValidatorInterface;
 
 class ResponseCodeValidator implements ValidatorInterface
@@ -24,7 +24,7 @@ class ResponseCodeValidator implements ValidatorInterface
      */
     public function validate(): bool
     {
-        if (!in_array($this->responseCode, AbstractResponse::ALLOWED_CODES, true)) {
+        if (!StatusCode::isKnown($this->responseCode)) {
             throw new UnknownResponseCodeException("Response code is not allowed: {$this->responseCode}");
         }
 
