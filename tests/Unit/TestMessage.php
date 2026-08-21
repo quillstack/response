@@ -9,7 +9,7 @@ use Quillstack\Response\Exceptions\UnknownResponseClassException;
 use Quillstack\Response\Exceptions\UnknownResponseCodeException;
 use Quillstack\Response\Factory\ResponseFactory;
 use Quillstack\Response\Response;
-use Quillstack\Response\Stream\EmptyStream;
+use Quillstack\Stream\EmptyStream;
 use Quillstack\Response\Tests\Mocks\SimpleResponse;
 use Quillstack\Response\Validators\ResponseCodeValidator;
 use Quillstack\UnitTests\AssertEqual;

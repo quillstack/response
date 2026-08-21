@@ -8,7 +8,7 @@ use JsonSerializable;
 use Psr\Http\Message\StreamInterface;
 use Quillstack\HeaderBag\HeaderBag;
 use Quillstack\Response\Exceptions\UnableToFindReasonPhraseException;
-use Quillstack\Response\Stream\EmptyStream;
+use Quillstack\Stream\EmptyStream;
 
 abstract class AbstractResponse implements ResponseInterface, JsonSerializable
 {
