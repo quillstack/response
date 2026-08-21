@@ -1,6 +1,6 @@
 # Quillstack Response
 
-[![Build Status](https://app.travis-ci.com/quillstack/response.svg?branch=main)](https://app.travis-ci.com/quillstack/response)
+[![Tests](https://github.com/quillstack/response/actions/workflows/tests.yml/badge.svg)](https://github.com/quillstack/response/actions/workflows/tests.yml)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=quillstack_response&metric=coverage)](https://sonarcloud.io/summary/new_code?id=quillstack_response)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=quillstack_response&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=quillstack_response)
 [![StyleCI](https://github.styleci.io/repos/291464500/shield?branch=main)](https://github.styleci.io/repos/291464500?branch=main)
