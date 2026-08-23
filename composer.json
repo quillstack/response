@@ -17,7 +17,7 @@
         "psr/http-message": "^1.0",
         "quillstack/di": "^0.6",
         "quillstack/header-bag": "^0.6",
-        "quillstack/stream": "^0.6",
+        "quillstack/stream": "^0.7.1",
         "quillstack/validator-interface": "^0.6"
     },
     "require-dev": {
