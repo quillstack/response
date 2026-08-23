@@ -42,7 +42,14 @@ abstract class AbstractResponse implements ResponseInterface, JsonSerializable
      */
     abstract public function send(): array;
 
-    private function findReasonPhrase(): string
+    /**
+     * The phrase that goes with the code, where none was given.
+     *
+     * A status code this library has never heard of is a typo in an application which wrote
+     * it, which is worth refusing outright. It is not worth refusing in a response which
+     * arrived from somewhere else, and that is what a client overrides this for.
+     */
+    protected function findReasonPhrase(): string
     {
         if (!StatusCode::isKnown($this->code)) {
             throw new UnableToFindReasonPhraseException("Unknown status code: {$this->code}");
