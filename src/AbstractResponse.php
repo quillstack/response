@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Quillstack\Response;
 
 use JsonSerializable;
+use Psr\Http\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 use Quillstack\HeaderBag\HeaderBag;
 use Quillstack\Response\Exceptions\UnableToFindReasonPhraseException;
@@ -61,7 +63,7 @@ abstract class AbstractResponse implements ResponseInterface, JsonSerializable
     /**
      * {@inheritDoc}
      */
-    public function getProtocolVersion()
+    public function getProtocolVersion(): string
     {
         return $this->protocolVersion;
     }
@@ -69,7 +71,7 @@ abstract class AbstractResponse implements ResponseInterface, JsonSerializable
     /**
      * {@inheritDoc}
      */
-    public function withProtocolVersion($version)
+    public function withProtocolVersion($version): MessageInterface
     {
         $new = clone $this;
         $new->protocolVersion = $version;
@@ -80,7 +82,7 @@ abstract class AbstractResponse implements ResponseInterface, JsonSerializable
     /**
      * {@inheritDoc}
      */
-    public function getHeaders()
+    public function getHeaders(): array
     {
         return $this->headerBag->getHeaders();
     }
@@ -88,7 +90,7 @@ abstract class AbstractResponse implements ResponseInterface, JsonSerializable
     /**
      * {@inheritDoc}
      */
-    public function hasHeader($name)
+    public function hasHeader($name): bool
     {
         return $this->headerBag->hasHeader($name);
     }
@@ -96,7 +98,7 @@ abstract class AbstractResponse implements ResponseInterface, JsonSerializable
     /**
      * {@inheritDoc}
      */
-    public function getHeader($name)
+    public function getHeader($name): array
     {
         return $this->headerBag->getHeader($name);
     }
@@ -104,7 +106,7 @@ abstract class AbstractResponse implements ResponseInterface, JsonSerializable
     /**
      * {@inheritDoc}
      */
-    public function getHeaderLine($name)
+    public function getHeaderLine($name): string
     {
         return $this->headerBag->getHeaderLine($name);
     }
@@ -112,7 +114,7 @@ abstract class AbstractResponse implements ResponseInterface, JsonSerializable
     /**
      * {@inheritDoc}
      */
-    public function withHeader($name, $value)
+    public function withHeader($name, $value): MessageInterface
     {
         $new = clone $this;
         $new->headerBag = $this->headerBag->withHeader($name, $value);
@@ -123,7 +125,7 @@ abstract class AbstractResponse implements ResponseInterface, JsonSerializable
     /**
      * {@inheritDoc}
      */
-    public function withAddedHeader($name, $value)
+    public function withAddedHeader($name, $value): MessageInterface
     {
         $new = clone $this;
         $new->headerBag = $this->headerBag->withAddedHeader($name, $value);
@@ -134,7 +136,7 @@ abstract class AbstractResponse implements ResponseInterface, JsonSerializable
     /**
      * {@inheritDoc}
      */
-    public function withoutHeader($name)
+    public function withoutHeader($name): MessageInterface
     {
         $new = clone $this;
         $new->headerBag = $this->headerBag->withoutHeader($name);
@@ -145,7 +147,7 @@ abstract class AbstractResponse implements ResponseInterface, JsonSerializable
     /**
      * {@inheritDoc}
      */
-    public function getBody()
+    public function getBody(): StreamInterface
     {
         return $this->body ?? new EmptyStream();
     }
@@ -153,7 +155,7 @@ abstract class AbstractResponse implements ResponseInterface, JsonSerializable
     /**
      * {@inheritDoc}
      */
-    public function withBody(StreamInterface $body)
+    public function withBody(StreamInterface $body): MessageInterface
     {
         $new = clone $this;
         $new->body = $body;
@@ -164,7 +166,7 @@ abstract class AbstractResponse implements ResponseInterface, JsonSerializable
     /**
      * {@inheritDoc}
      */
-    public function getStatusCode()
+    public function getStatusCode(): int
     {
         return $this->code;
     }
@@ -172,7 +174,7 @@ abstract class AbstractResponse implements ResponseInterface, JsonSerializable
     /**
      * {@inheritDoc}
      */
-    public function withStatus($code, $reasonPhrase = '')
+    public function withStatus($code, $reasonPhrase = ''): ResponseInterface
     {
         $new = clone $this;
         $new->code = $code;
@@ -184,7 +186,7 @@ abstract class AbstractResponse implements ResponseInterface, JsonSerializable
     /**
      * {@inheritDoc}
      */
-    public function getReasonPhrase()
+    public function getReasonPhrase(): string
     {
         return $this->reasonPhrase;
     }
