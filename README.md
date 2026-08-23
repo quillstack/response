@@ -20,19 +20,32 @@ A response is written as a class: what it carries is one method, and the status 
 class says it is. That way an endpoint's answer is a thing with a name rather than an array
 assembled somewhere in a controller.
 
-### Requirements
+## Why this exists
+
+A response in an API is nearly always the same shape: a status, a content type, and an object
+turned into JSON. Every PSR-7 implementation makes you assemble that by hand each time, because
+they are written for everything HTTP can carry rather than for the one thing an API sends.
+
+So a response here is a class you write once and name — `UserResponse`, `NotFoundResponse` — and
+`send()` says what it carries. The status code and its reason phrase come from a table checked
+against RFC 9110, and **a status code this library has never heard of is refused rather than
+answered with an empty phrase**, because in an application that is a typo rather than a
+decision. A response arriving from somewhere else is the other case, and
+[quillstack/http-client](https://github.com/quillstack/http-client) says so by overriding it.
+
+## Requirements
 
 - PHP 8.1 or newer
 
-### Installation
+## Installation
 
 ```shell
 composer require quillstack/response
 ```
 
-### Usage
+## Usage
 
-#### A response of your own
+### A response of your own
 
 Extend `Response` and say what it carries:
 
@@ -65,7 +78,7 @@ $response->getReasonPhrase();   // 'OK'
 json_encode($response);         // {"id":"42"}
 ```
 
-#### Saying what happened
+### Saying what happened
 
 The status comes from the constructor, so a response which means something other than success
 says so where it is defined rather than where it is used:
@@ -92,7 +105,7 @@ final class NotFoundResponse extends Response
 The reason phrase is found from the code, so `404` is `Not Found` without anybody writing it
 down twice. Passing one explicitly overrides it.
 
-#### Headers
+### Headers
 
 Every change hands back a copy, so the response you were given stays as it was:
 
@@ -104,14 +117,14 @@ $response = (new UserResponse())
 $response->getHeaderLine('content-type');   // 'application/json'
 ```
 
-#### Building one from a factory
+### Building one from a factory
 
 ```php
 $factory->setResponseClass(UserResponse::class);
 $response = $factory->createResponse(StatusCode::CREATED);
 ```
 
-### Technical documentation
+## Technical documentation
 
 `AbstractResponse` implements `Psr\Http\Message\ResponseInterface` and `JsonSerializable`;
 `Response` is the class to extend, and `send()` is the one method to write.
@@ -138,7 +151,36 @@ phrase.
 
 All extend `ResponseException`.
 
-### Unit tests
+## Benchmark
+
+Measured with [quillstack/benchmark](https://github.com/quillstack/benchmark) on one JSON
+response — a status, a content type and a twenty-two byte body — built a thousand times. All
+four produce the same status, phrase, header and body. Runs are interleaved, each figure is the
+median of five, and PHP is 8.5.7.
+
+| | Version |
+| --- | --- |
+| quillstack/response | v0.8.0 |
+| nyholm/psr7 | 1.8.2 |
+| laminas/laminas-diactoros | 3.8.0 |
+| guzzlehttp/psr7 | 2.13.0 |
+
+| | Per response | Relative |
+| --- | --- | --- |
+| **quillstack/response** | **2.86 µs** | — |
+| nyholm/psr7 | 4.27 µs | 1.5× |
+| laminas/laminas-diactoros | 7.79 µs | 2.7× |
+| guzzlehttp/psr7 | 8.31 µs | 2.9× |
+
+Most of that gap is the body: this one keeps a string as a string, where the others write it
+into a `php://temp` resource — the same difference measured in
+[quillstack/stream](https://github.com/quillstack/stream).
+
+**What the numbers do not say:** all three of the others will carry any body PHP can open — a
+socket, a compressed resource, a file handle — and construct from any of them. This is built for
+the response an API sends, which is a status and some JSON.
+
+## Tests
 
 ```shell
 composer test
@@ -146,13 +188,16 @@ composer test:coverage
 composer stan
 ```
 
-### Docker
+## The rest of Quillstack
 
-```shell
-docker-compose up -d
-docker exec -w /var/www/html -it quillstack_response sh
-```
+This is one component of [Quillstack](https://github.com/quillstack), a PHP framework which is
+as simple to use as it is strict about what it does.
 
-### License
+- [quillstack/serializer](https://github.com/quillstack/serializer) — what decides which fields go
+- [quillstack/stream](https://github.com/quillstack/stream) — what carries the body
+- [quillstack/header-bag](https://github.com/quillstack/header-bag) — the headers underneath
+- [quillstack/framework](https://github.com/quillstack/framework) — where a response is answered with
+
+## License
 
 MIT. See [LICENSE](LICENSE).
